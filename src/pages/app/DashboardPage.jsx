@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useNavigate } from 'react-router-dom';
 import { Plus, ArrowDownToLine, ArrowUpFromLine, ArrowRightLeft, SlidersHorizontal, AlertTriangle, Clock } from 'lucide-react';
 import { PageWrapper } from '../../components/layout/PageWrapper';
 import { StatCard } from '../../components/ui/StatCard';
@@ -13,6 +14,7 @@ import { useUIStore } from '../../store/useUIStore';
 import { formatDate } from '../../utils/formatters';
 
 export const DashboardPage = () => {
+    const navigate = useNavigate();
     const { products, transactions, warehouses } = useInventoryStore();
     const setHover = useUIStore(s => s.setCursorHoverState);
     const timelineRef = useRef(null);
@@ -52,16 +54,40 @@ export const DashboardPage = () => {
         <PageWrapper>
             {/* Quick Actions Bar */}
             <div className="flex flex-wrap items-center gap-3 mb-8">
-                <Button variant="ghost" className="border-border hover:border-accent-yellow bg-surface">
+                <Button 
+                    variant="ghost" 
+                    className="border-border hover:border-accent-yellow bg-surface"
+                    onClick={() => navigate('/app/receipts')}
+                    onMouseEnter={() => setHover('button')}
+                    onMouseLeave={() => setHover('default')}
+                >
                     <ArrowDownToLine size={16} className="mr-2" /> New Receipt
                 </Button>
-                <Button variant="ghost" className="border-border hover:border-accent-yellow bg-surface">
+                <Button 
+                    variant="ghost" 
+                    className="border-border hover:border-accent-yellow bg-surface"
+                    onClick={() => navigate('/app/deliveries')}
+                    onMouseEnter={() => setHover('button')}
+                    onMouseLeave={() => setHover('default')}
+                >
                     <ArrowUpFromLine size={16} className="mr-2" /> New Delivery
                 </Button>
-                <Button variant="ghost" className="border-border hover:border-accent-yellow bg-surface">
+                <Button 
+                    variant="ghost" 
+                    className="border-border hover:border-accent-yellow bg-surface"
+                    onClick={() => navigate('/app/transfers')}
+                    onMouseEnter={() => setHover('button')}
+                    onMouseLeave={() => setHover('default')}
+                >
                     <ArrowRightLeft size={16} className="mr-2" /> Transfer Stock
                 </Button>
-                <Button variant="ghost" className="border-border hover:border-accent-yellow bg-surface">
+                <Button 
+                    variant="ghost" 
+                    className="border-border hover:border-accent-yellow bg-surface"
+                    onClick={() => navigate('/app/adjustments')}
+                    onMouseEnter={() => setHover('button')}
+                    onMouseLeave={() => setHover('default')}
+                >
                     <SlidersHorizontal size={16} className="mr-2" /> Adjust Stock
                 </Button>
             </div>

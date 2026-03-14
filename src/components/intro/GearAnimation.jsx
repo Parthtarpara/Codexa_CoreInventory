@@ -15,7 +15,7 @@ export const GearAnimation = forwardRef(({ className = '' }, ref) => {
                 viewBox="0 0 200 200"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]"
+                className="filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)] animate-[spin_20s_linear_infinite]"
             >
                 <defs>
                     <linearGradient id="gearMetallic" x1="0" y1="0" x2="200" y2="200">
@@ -79,7 +79,7 @@ export const GearAnimation = forwardRef(({ className = '' }, ref) => {
 
             {/* Secondary Gear (Bottom right, interlocked) */}
             <div className="absolute -bottom-8 -right-8 w-[100px] h-[100px] filter drop-shadow-[0_5px_10px_rgba(0,0,0,0.8)]">
-                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full animate-[spin_10s_linear_infinite_reverse]">
+                <svg viewBox="0 0 100 100" fill="none" className="w-full h-full animate-[spin_14.2857s_linear_infinite_reverse]">
                     <circle cx="50" cy="50" r="40" fill="url(#gearMetallic)" stroke="#1a1a1a" strokeWidth="1" />
                     <g fill="url(#gearMetallic)" stroke="#1a1a1a" strokeWidth="0.5">
                         {[...Array(10)].map((_, i) => (

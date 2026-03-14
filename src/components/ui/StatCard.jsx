@@ -47,12 +47,6 @@ export const StatCard = ({ title, value, type = 'number', trend = 0, warning = f
                 </div>
             </div>
 
-            {/* Abstract background accent */}
-            <div className="absolute -right-6 -bottom-6 opacity-5 pointer-events-none">
-                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 100V0L100 100H0Z" fill="currentColor" />
-                </svg>
-            </div>
         </Card>
     );
 };
