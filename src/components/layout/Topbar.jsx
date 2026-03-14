@@ -38,8 +38,6 @@ export const Topbar = () => {
                     <input
                         type="text"
                         placeholder="Search products, SKUs, or orders... (Tap /)"
-                        onMouseEnter={() => setCursorHoverState('link')}
-                        onMouseLeave={() => setCursorHoverState('default')}
                         className="w-full bg-elevated border border-border rounded-full py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-accent-yellow focus:shadow-[0_0_10px_rgba(245,196,0,0.15)] transition-all placeholder:text-text-secondary"
                     />
                 </div>

@@ -13,4 +13,7 @@ export const useUIStore = create((set) => ({
 
     cursorHoverState: 'default',
     setCursorHoverState: (stateType) => set({ cursorHoverState: stateType }),
+
+    introShown: false,
+    setIntroShown: (val) => set({ introShown: val }),
 }));

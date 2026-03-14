@@ -1,78 +1,102 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useUIStore } from '../../store/useUIStore';
 
 export const CustomCursor = () => {
     const hoverState = useUIStore(s => s.cursorHoverState);
     const cursorRef = useRef(null);
-    const [sparkles, setSparkles] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
+    const [sparkles, setSparkles] = useState([]);
+    const lastPos = useRef({ x: 0, y: 0 });
 
-    const onMouseMove = useCallback((e) => {
+    useEffect(() => {
         if (!cursorRef.current) return;
 
-        const { clientX: x, clientY: y } = e;
+        // Centering handle
+        gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50 });
 
-        // Move main diamond
-        gsap.to(cursorRef.current, {
-            x, y,
-            duration: 0.1,
-            ease: "power2.out"
-        });
+        // Zero-duration quickTo for high performance but smooth follow
+        // Using duration: 0 for absolute zero lag
+        const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0, ease: "none" });
+        const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0, ease: "none" });
 
-        // Add a sparkle
-        const id = Math.random().toString(36).substr(2, 9);
-        setSparkles(prev => [...prev.slice(-12), { id, x, y }]);
+        const onMouseMove = (e) => {
+            const { clientX: x, clientY: y } = e;
+            xTo(x);
+            yTo(y);
 
-        // Check for interactive elements to hide custom cursor
-        const target = e.target;
-        const isInput = target.tagName === 'INPUT' ||
-            target.tagName === 'TEXTAREA' ||
-            target.isContentEditable ||
-            target.tagName === 'SELECT';
+            // Throttle sparkle creation
+            const dist = Math.hypot(x - lastPos.current.x, y - lastPos.current.y);
+            if (dist > 80) {
+                const id = Math.random().toString(36).substring(2, 7);
+                setSparkles(prev => [...prev.slice(-6), { id, x, y }]);
+                lastPos.current = { x, y };
+            }
 
-        setIsVisible(!isInput);
-    }, []);
+            // Enhanced hiding logic
+            if (e.target) {
+                const target = e.target;
+                const isInteractive =
+                    target.tagName === 'INPUT' ||
+                    target.tagName === 'TEXTAREA' ||
+                    target.isContentEditable ||
+                    target.closest('input') ||
+                    target.closest('textarea') ||
+                    target.closest('.search-container') ||
+                    target.closest('header .max-w-md'); // Target the search container in Topbar
 
-    useEffect(() => {
+                setIsVisible(!isInteractive);
+            }
+        };
+
         window.addEventListener('mousemove', onMouseMove);
         return () => window.removeEventListener('mousemove', onMouseMove);
-    }, [onMouseMove]);
-
-    // Handle sparkle cleanup
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setSparkles(prev => prev.slice(1));
-        }, 150);
-        return () => clearInterval(timer);
     }, []);
 
-    // Diamond size & style based on hover
-    let size = "w-2.5 h-2.5";
-    let glow = "shadow-[0_0_10px_rgba(245,196,0,0.8)]";
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSparkles(prev => prev.length > 0 ? prev.slice(1) : prev);
+        }, 400);
+        return () => clearInterval(interval);
+    }, []);
 
-    if (hoverState === 'button' || hoverState === 'link') {
-        size = "w-4 h-4";
-        glow = "shadow-[0_0_15px_rgba(245,196,0,1)]";
-    }
+    const isHovered = hoverState === 'button' || hoverState === 'link';
+    const size = isHovered ? 18 : 10;
+    const glowOpacity = isHovered ? 0.9 : 0.4;
 
     if (!isVisible) return null;
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden hidden md:block mix-blend-screen">
-            {/* Sparkle Trail */}
+        <div className="pointer-events-none fixed inset-0 z-[99999] overflow-hidden hidden md:block mix-blend-screen">
             {sparkles.map((s) => (
                 <div
                     key={s.id}
                     className="absolute w-1 h-1 bg-accent-yellow rounded-full animate-sparkle"
-                    style={{ left: s.x, top: s.y, transform: 'translate(-50%, -50%)' }}
+                    style={{
+                        left: s.x,
+                        top: s.y,
+                        transform: 'translate(-50%, -50%)',
+                        filter: 'blur(1px)',
+                        opacity: 0.5
+                    }}
                 />
             ))}
 
-            {/* Main Diamond Cursor */}
             <div
                 ref={cursorRef}
-                className={`absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-accent-yellow ${size} ${glow} transition-all duration-200`}
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    backgroundColor: '#F5C400',
+                    transform: 'rotate(45deg)', // Centering is via xPercent/yPercent
+                    boxShadow: `0 0 20px rgba(245, 196, 0, ${glowOpacity})`,
+                    willChange: 'transform',
+                    zIndex: 99999,
+                    transition: 'width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease'
+                }}
             />
         </div>
     );

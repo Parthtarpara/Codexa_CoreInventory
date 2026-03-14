@@ -10,6 +10,7 @@ import { NotificationPanel } from './components/notifications/NotificationPanel'
 
 // Store
 import { useAppStore } from './store/useAppStore';
+import { useUIStore } from './store/useUIStore';
 
 // Public Pages
 import { IntroPage } from './pages/IntroPage';
@@ -63,6 +64,9 @@ const PublicRoute = ({ children }) => {
 };
 
 const App = () => {
+  const { introShown } = useUIStore();
+  const { isAuthenticated } = useAppStore();
+
   return (
     <BrowserRouter>
       {/* Global Interactions */}
@@ -71,7 +75,10 @@ const App = () => {
 
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<PublicRoute><IntroPage /></PublicRoute>} />
+        <Route path="/" element={
+          isAuthenticated ? <Navigate to="/app" replace /> :
+            !introShown ? <IntroPage /> : <Navigate to="/landing" replace />
+        } />
         <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
 
         {/* Auth Routes */}

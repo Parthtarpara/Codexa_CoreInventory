@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { GearAnimation } from '../components/intro/GearAnimation';
+import { useUIStore } from '../store/useUIStore';
 
 export const IntroPage = () => {
     const containerRef = useRef(null);
@@ -15,6 +16,7 @@ export const IntroPage = () => {
 
     const [typedText, setTypedText] = useState('');
     const [phaseDone, setPhaseDone] = useState(false);
+    const setIntroShown = useUIStore(s => s.setIntroShown);
 
     const navigate = useNavigate();
     const timelineRef = useRef(null);
@@ -90,6 +92,7 @@ export const IntroPage = () => {
 
         const tl = gsap.timeline({
             onComplete: () => {
+                setIntroShown(true);
                 navigate('/landing');
             }
         });
