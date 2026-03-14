@@ -5,7 +5,6 @@ import { Toaster } from 'react-hot-toast';
 // Layouts & Interactions
 import { Sidebar } from './components/layout/Sidebar';
 import { Topbar } from './components/layout/Topbar';
-import { CustomCursor } from './components/cursor/CustomCursor';
 import { NotificationPanel } from './components/notifications/NotificationPanel';
 
 // Store
@@ -70,7 +69,6 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* Global Interactions */}
-      <CustomCursor />
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       <Routes>

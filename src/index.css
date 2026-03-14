@@ -42,24 +42,8 @@
     font-family: var(--font-space);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    cursor: none;
   }
 
-  /* Only show system cursor for inputs and selections */
-  input,
-  textarea,
-  select,
-  [contenteditable="true"],
-  .show-cursor {
-    cursor: auto !important;
-  }
-
-  /* Ensure the custom cursor behaves correctly on links */
-  a,
-  button,
-  .cursor-pointer {
-    cursor: none !important;
-  }
 }
 
 @layer utilities {
