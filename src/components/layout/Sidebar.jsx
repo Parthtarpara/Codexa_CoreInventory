@@ -17,7 +17,8 @@ import {
     LogOut,
     Menu,
     ChevronLeft,
-    Home
+    Home,
+    User
 } from 'lucide-react';
 import { useUIStore } from '../../store/useUIStore';
 import { useAppStore } from '../../store/useAppStore';
@@ -102,8 +103,8 @@ export const Sidebar = () => {
                     onMouseLeave={() => setCursorHoverState('default')}
                     className="flex items-center gap-3 overflow-hidden whitespace-nowrap group hover:opacity-80 transition-opacity"
                 >
-                    <div className="w-8 h-8 bg-accent-yellow/10 border border-accent-yellow flex items-center justify-center rounded shrink-0 group-hover:bg-accent-yellow/20 transition-colors">
-                        <span className="font-orbitron font-bold text-accent-yellow text-sm">CI</span>
+                    <div className="w-8 h-8 rounded overflow-hidden shrink-0">
+                        <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                     </div>
                     {sidebarExpanded && (
                         <motion.span
@@ -175,13 +176,11 @@ export const Sidebar = () => {
                         to="/app/settings"
                         onMouseEnter={() => setCursorHoverState('link')}
                         onMouseLeave={() => setCursorHoverState('default')}
-                        className="flex items-center gap-3 overflow-hidden group hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
+                        className="flex items-center gap-3 overflow-hidden group hover:bg-white/5 p-1 rounded transition-colors cursor-pointer text-left"
                     >
-                        <img
-                            src={currentUser?.avatar}
-                            alt={currentUser?.name}
-                            className="w-8 h-8 rounded-full border border-border shrink-0 group-hover:border-accent-yellow transition-colors"
-                        />
+                        <div className="w-8 h-8 rounded-full border border-border shrink-0 flex items-center justify-center bg-elevated text-text-secondary">
+                            <User size={16} />
+                        </div>
                         {sidebarExpanded && (
                             <div className="flex flex-col">
                                 <span className="text-sm font-medium text-white truncate w-24 group-hover:text-accent-yellow transition-colors">{currentUser?.name}</span>

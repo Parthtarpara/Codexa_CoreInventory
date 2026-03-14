@@ -4,7 +4,6 @@ export const users = [
         name: 'Sarah Chen',
         email: 'sarah.chen@coreinventory.com',
         role: 'Admin',
-        avatar: 'https://i.pravatar.cc/150?u=sarah',
         lastActive: 'Just now'
     },
     {
@@ -12,7 +11,6 @@ export const users = [
         name: 'Marcus Johnson',
         email: 'mjohnson@coreinventory.com',
         role: 'Manager',
-        avatar: 'https://i.pravatar.cc/150?u=marcus',
         lastActive: '2h ago'
     },
     {
@@ -20,7 +18,6 @@ export const users = [
         name: 'Elena Rodriguez',
         email: 'erodriguez@coreinventory.com',
         role: 'Operator',
-        avatar: 'https://i.pravatar.cc/150?u=elena',
         lastActive: '5h ago'
     }
 ];

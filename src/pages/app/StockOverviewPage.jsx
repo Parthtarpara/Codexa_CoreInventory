@@ -110,7 +110,7 @@ export const StockOverviewPage = () => {
                             </div>
                             <div className="flex justify-between pt-1">
                                 <span className="text-xs text-text-secondary">Asset Value</span>
-                                <span className="font-orbitron font-bold text-accent-yellow">${cat.totalValue.toLocaleString()}</span>
+                                <span className="font-orbitron font-bold text-accent-yellow">₹{cat.totalValue.toLocaleString()}</span>
                             </div>
                         </div>
                     </Card>

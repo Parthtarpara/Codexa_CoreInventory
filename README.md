@@ -1,16 +1,60 @@
-# React + Vite
+# CoreInventory | Precision Intelligence
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CoreInventory is a high-performance, real-time inventory management system designed for operational excellence. It provides warehouse teams with complete visibility over stock levels, transfers, and deliveries through a premium, data-driven interface.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Real-Time Stock Tracking**: Monitor inventory levels across all locations with sub-2-second sync latency.
+- **Multi-Warehouse Management**: Unified visibility for multiple distribution hubs and zones.
+- **Precision Analytics**: Data-driven insights into inventory value trajectory and stock accuracy.
+- **Immutable Audit Ledger**: Complete cryptographic trail of every inventory movement.
+- **Low Stock Alerts**: Predictive notifications to prevent stockouts.
+- **Indian Localization**: Fully optimized for the Indian market with **INR (₹)** currency support and local conventions.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework**: [React 19](https://react.dev/)
+- **Bundler**: [Vite 6](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) & [GSAP](https://greensock.com/gsap/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Tables**: [TanStack Table v8](https://tanstack.com/table)
 
-## Expanding the ESLint configuration
+## 🎨 Premium Experience
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+CoreInventory is built with a focus on high-end aesthetics and fluid user experience:
+- **Custom Hardware-Accelerated Cursor**: Optimized for low latency and high-precision interaction.
+- **Dark Mode by Default**: Sleek, professional interface optimized for operations centers.
+- **Hardware-Accelerated Animations**: Smooth transitions leveraging the GPU for maximum performance.
+
+## 📦 Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone [repository-url]
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🇮🇳 Localization
+The system is configured for the Indian operational context:
+- Currency: **Indian Rupee (₹)**
+- Formatting: `en-IN` numbering system.
+- Generic Profiles: Privacy-focused generic profile icons instead of AI-generated photos.
+
+---
+© 2025 CoreInventory

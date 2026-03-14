@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 
 export const formatCurrency = (value) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'INR',
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     }).format(value);
 };
 
 export const formatNumber = (value) => {
-    return new Intl.NumberFormat('en-US').format(value);
+    return new Intl.NumberFormat('en-IN').format(value);
 };
 
 export const formatDate = (dateStr, format = 'DD MMM YYYY') => {

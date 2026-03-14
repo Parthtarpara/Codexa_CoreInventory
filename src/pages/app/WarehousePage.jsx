@@ -171,7 +171,7 @@ export const WarehousePage = () => {
                                 </div>
                                 <div>
                                     <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-1">Total Value</div>
-                                    <div className="text-xl font-orbitron font-bold text-white">${(totalValue / 1000).toFixed(1)}k</div>
+                                    <div className="text-xl font-orbitron font-bold text-white">₹{(totalValue / 1000).toFixed(1)}k</div>
                                 </div>
                             </div>
 

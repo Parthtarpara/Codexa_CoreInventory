@@ -67,8 +67,8 @@ export const LandingPage = () => {
                     onMouseLeave={() => setHover('default')}
                     className="flex items-center gap-3 group hover:opacity-80 transition-opacity"
                 >
-                    <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
-                        <span className="font-orbitron font-bold text-black text-sm">CI</span>
+                    <div className="w-8 h-8 rounded overflow-hidden">
+                        <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                     </div>
                     <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
                 </Link>
@@ -116,7 +116,7 @@ export const LandingPage = () => {
                             title: 'Pricing', 
                             content: [
                                 { tier: 'Starter', details: 'Free forever. Up to 100 SKUs, single warehouse location, basic stock tracking, and community support.' },
-                                { tier: 'Professional', details: '$49/month. Unlimited SKUs, multi-warehouse sync, predictive alerts, and advanced reporting tools.' },
+                                { tier: 'Professional', details: '₹4,000/month. Unlimited SKUs, multi-warehouse sync, predictive alerts, and advanced reporting tools.' },
                                 { tier: 'Enterprise', details: 'Custom pricing. Dedicated support, full API access, custom integrations, and 24/7 priority response.' }
                             ]
                         })}
@@ -276,8 +276,8 @@ export const LandingPage = () => {
             <footer className="border-t border-white/5 py-8 mt-12 bg-surface/50">
                 <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded shrink-0">
-                            <span className="font-orbitron font-bold text-black text-[10px]">CI</span>
+                        <div className="w-6 h-6 rounded shrink-0 overflow-hidden">
+                            <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
                         <span className="font-orbitron font-bold text-white opacity-80 text-sm">CoreInventory</span>
                     </div>
