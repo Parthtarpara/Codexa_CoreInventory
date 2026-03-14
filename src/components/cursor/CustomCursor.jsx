@@ -33,6 +33,7 @@ export const CustomCursor = () => {
 
         let mouse = { x: width / 2, y: height / 2 };
         let smoothedMouse = { x: mouse.x, y: mouse.y };
+        let lastSmoothed = { x: mouse.x, y: mouse.y };
         
         const onMouseMove = (e) => {
             mouse.x = e.clientX;
@@ -40,45 +41,67 @@ export const CustomCursor = () => {
         };
         window.addEventListener('mousemove', onMouseMove);
 
+        // --- Anti-gravity Particles ---
         const particles = Array.from({ length: 200 }, () => ({
             x: Math.random() * width,
             y: Math.random() * height,
-            vy: -Math.random() * 0.3 - 0.1,
-            vx: (Math.random() - 0.5) * 0.1,
+            vy: -Math.random() * 0.4 - 0.1,
+            vx: (Math.random() - 0.5) * 0.2,
             size: Math.random() * 1.5 + 0.5,
             baseAlpha: Math.random() * 0.4 + 0.1,
         }));
 
+        let glareParticles = [];
         let animationFrameId;
         let time = 0;
 
-        const drawOpticalFlare = (x, y, angle, length, width, alpha) => {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(angle);
-            ctx.globalCompositeOperation = 'screen';
-            
-            const gradient = ctx.createLinearGradient(0, 0, length, 0);
-            gradient.addColorStop(0, `rgba(245, 196, 0, ${alpha})`);
-            gradient.addColorStop(1, 'rgba(245, 196, 0, 0)');
-            
-            ctx.fillStyle = gradient;
-            ctx.beginPath();
-            ctx.moveTo(0, -width);
-            ctx.lineTo(length, 0);
-            ctx.lineTo(0, width);
-            ctx.fill();
-            ctx.restore();
-        };
-
         const render = () => {
             time++;
+            lastSmoothed.x = smoothedMouse.x;
+            lastSmoothed.y = smoothedMouse.y;
             smoothedMouse.x += (mouse.x - smoothedMouse.x) * 0.3;
             smoothedMouse.y += (mouse.y - smoothedMouse.y) * 0.3;
+            const cx = smoothedMouse.x;
+            const cy = smoothedMouse.y;
+            const isHovered = hoverStateRef.current === 'button' || hoverStateRef.current === 'link';
 
             ctx.clearRect(0, 0, width, height);
-            
-            // Draw particles (underneath)
+
+            // 1. Draw Glare Trail
+            const speed = Math.hypot(cx - lastSmoothed.x, cy - lastSmoothed.y);
+            if (speed > 1 && Math.random() > 0.4) {
+                glareParticles.push({
+                    x: cx + (Math.random() - 0.5) * 8,
+                    y: cy + (Math.random() - 0.5) * 8,
+                    vx: -(cx - lastSmoothed.x) * 0.05 + (Math.random() - 0.5) * 0.5,
+                    vy: -(cy - lastSmoothed.y) * 0.05 + (Math.random() - 0.5) * 0.5,
+                    life: 1.0,
+                    size: Math.random() * 3 + 1.5
+                });
+            }
+
+            ctx.globalCompositeOperation = 'screen';
+            for (let i = glareParticles.length - 1; i >= 0; i--) {
+                let p = glareParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.03;
+                if (p.life <= 0) {
+                    glareParticles.splice(i, 1);
+                    continue;
+                }
+                ctx.strokeStyle = `rgba(255, 240, 150, ${p.life})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                const currentSize = p.size * p.life;
+                ctx.moveTo(p.x - currentSize, p.y);
+                ctx.lineTo(p.x + currentSize, p.y);
+                ctx.moveTo(p.x, p.y - currentSize);
+                ctx.lineTo(p.x, p.y + currentSize);
+                ctx.stroke();
+            }
+
+            // 2. Draw Anti-Gravity Particles
             ctx.globalCompositeOperation = 'source-over';
             particles.forEach(p => {
                 const dx = p.x - mouse.x;
@@ -106,72 +129,93 @@ export const CustomCursor = () => {
                 ctx.fill();
             });
 
-            const isHovered = hoverStateRef.current === 'button' || hoverStateRef.current === 'link';
-            const cx = smoothedMouse.x;
-            const cy = smoothedMouse.y;
-            
-            // Render optical flares (the 12 lines, but cinematic)
+            // 3. Draw Yellow Glow Halos
+            ctx.globalCompositeOperation = 'screen';
+            const pulsate = Math.sin(time * 0.1) * 0.2 + 1; // 1.0 to 1.2
+            const outerHaloSize = isHovered ? 25 : 15;
+            const innerHaloSize = isHovered ? 12 : 8;
+
+            // Outer Yellow Halo
+            let glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, outerHaloSize * pulsate);
+            glow.addColorStop(0, 'rgba(245, 196, 0, 0.3)');
+            glow.addColorStop(1, 'rgba(245, 196, 0, 0)');
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(cx, cy, outerHaloSize * pulsate, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Inner Yellow Halo
+            glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, innerHaloSize * pulsate);
+            glow.addColorStop(0, 'rgba(255, 230, 100, 0.6)');
+            glow.addColorStop(1, 'rgba(255, 230, 100, 0)');
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(cx, cy, innerHaloSize * pulsate, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 4. Draw 12 Radiating Glare Lines
+            ctx.globalCompositeOperation = 'screen';
             const numLines = 12;
-            const pulse = Math.sin(time * 0.05) * 0.2 + 1;
+            const baseLen = isHovered ? 15 : 8;
             
             for (let i = 0; i < numLines; i++) {
                 const angle = (Math.PI * 2 / numLines) * i;
                 const isCardinal = i % 3 === 0;
-                const baseLen = isHovered ? (isCardinal ? 30 : 15) : (isCardinal ? 18 : 8);
-                const flareLength = baseLen * pulse;
-                const flareWidth = isCardinal ? 1.0 : 0.5;
-                const alpha = isCardinal ? 0.8 : 0.4;
+                // Add varied pulse to lengths based on index
+                const linePulse = Math.sin(time * 0.08 + i) * 6;
+                const len = (isCardinal ? baseLen * 1.5 : baseLen) + linePulse;
+                const endX = cx + Math.cos(angle) * len;
+                const endY = cy + Math.sin(angle) * len;
+
+                const lineGlow = ctx.createLinearGradient(cx, cy, endX, endY);
+                lineGlow.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+                lineGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 
-                drawOpticalFlare(cx, cy, angle, flareLength, flareWidth, alpha);
+                ctx.strokeStyle = lineGlow;
+                ctx.lineWidth = isCardinal ? 1.5 : 0.8;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(endX, endY);
+                ctx.stroke();
             }
 
-            // Central Diamond Glow Halo
-            ctx.globalCompositeOperation = 'screen';
-            const glowGradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, isHovered ? 25 : 15);
-            glowGradient.addColorStop(0, 'rgba(255, 230, 100, 0.4)');
-            glowGradient.addColorStop(1, 'rgba(245, 196, 0, 0)');
-            ctx.fillStyle = glowGradient;
-            ctx.beginPath();
-            ctx.arc(cx, cy, isHovered ? 25 : 15, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Geometric Core Diamond
+            // 5. Draw Faceted White Diamond Core
             ctx.globalCompositeOperation = 'source-over';
-            const size = isHovered ? 6 : 4;
+            const s = isHovered ? 5 : 3;
             
-            // Deep gold facet
-            ctx.fillStyle = '#b38f00';
+            // Bottom Right (Darker grey)
+            ctx.fillStyle = '#cccccc';
             ctx.beginPath();
-            ctx.moveTo(cx, cy - size);
-            ctx.lineTo(cx + size, cy);
-            ctx.lineTo(cx, cy + size);
-            ctx.lineTo(cx - size, cy);
+            ctx.moveTo(cx, cy - s);
+            ctx.lineTo(cx + s, cy);
+            ctx.lineTo(cx, cy + s);
+            ctx.lineTo(cx - s, cy);
             ctx.fill();
 
-            // Bright top-left facet
+            // Top Left (Bright White)
             ctx.fillStyle = '#ffffff';
             ctx.beginPath();
-            ctx.moveTo(cx, cy - size);
-            ctx.lineTo(cx - size, cy);
+            ctx.moveTo(cx, cy - s);
+            ctx.lineTo(cx - s, cy);
             ctx.lineTo(cx, cy);
             ctx.fill();
 
-            // Mid top-right facet
-            ctx.fillStyle = '#ffe666';
+            // Top Right (Mid grey)
+            ctx.fillStyle = '#eeeeee';
             ctx.beginPath();
-            ctx.moveTo(cx, cy - size);
-            ctx.lineTo(cx + size, cy);
+            ctx.moveTo(cx, cy - s);
+            ctx.lineTo(cx + s, cy);
             ctx.lineTo(cx, cy);
             ctx.fill();
 
-            // Outline for precision
+            // Core Outline
             ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(cx, cy - size);
-            ctx.lineTo(cx + size, cy);
-            ctx.lineTo(cx, cy + size);
-            ctx.lineTo(cx - size, cy);
+            ctx.moveTo(cx, cy - s);
+            ctx.lineTo(cx + s, cy);
+            ctx.lineTo(cx, cy + s);
+            ctx.lineTo(cx - s, cy);
             ctx.closePath();
             ctx.stroke();
 

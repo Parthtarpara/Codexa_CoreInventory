@@ -11,6 +11,9 @@ import { NotificationPanel } from './components/notifications/NotificationPanel'
 import { useAppStore } from './store/useAppStore';
 import { useUIStore } from './store/useUIStore';
 
+// Components
+import { CustomCursor } from './components/cursor/CustomCursor';
+
 // Public Pages
 import { IntroPage } from './pages/IntroPage';
 import { LandingPage } from './pages/LandingPage';
@@ -69,6 +72,7 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* Global Interactions */}
+      <CustomCursor />
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       <Routes>
