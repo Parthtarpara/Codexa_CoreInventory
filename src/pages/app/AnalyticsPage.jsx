@@ -34,7 +34,6 @@ export const AnalyticsPage = () => {
             {/* KPI Blocks */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="border-border flex flex-col justify-center relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 opacity-5 text-accent-yellow group-hover:scale-110 transition-transform"><Activity size={100} /></div>
                     <div className="text-sm text-text-secondary uppercase tracking-wider mb-2 z-10">Inventory Value Trajectory</div>
                     <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">${(totalValue / 1000).toFixed(1)}k</div>
                     <div className="flex items-center text-sm font-medium text-success z-10">
@@ -43,7 +42,6 @@ export const AnalyticsPage = () => {
                 </Card>
 
                 <Card className="border-border flex flex-col justify-center relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 opacity-5 text-accent-yellow group-hover:scale-110 transition-transform"><RefreshCw size={100} /></div>
                     <div className="text-sm text-text-secondary uppercase tracking-wider mb-2 z-10">Stock Turnover Rate</div>
                     <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">{turnoverRate}</div>
                     <div className="flex items-center text-sm font-medium text-success z-10">
@@ -52,7 +50,6 @@ export const AnalyticsPage = () => {
                 </Card>
 
                 <Card className="border-border flex flex-col justify-center relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 opacity-5 text-accent-yellow group-hover:scale-110 transition-transform"><ArrowDownToLine size={100} /></div>
                     <div className="text-sm text-text-secondary uppercase tracking-wider mb-2 z-10">Total Inbound</div>
                     <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">{totalIn.toLocaleString()}</div>
                     <div className="flex items-center text-sm font-medium text-danger z-10">
@@ -61,7 +58,6 @@ export const AnalyticsPage = () => {
                 </Card>
 
                 <Card className="border-border flex flex-col justify-center relative overflow-hidden group">
-                    <div className="absolute -right-4 -top-4 opacity-5 text-accent-yellow group-hover:scale-110 transition-transform"><ArrowUpFromLine size={100} /></div>
                     <div className="text-sm text-text-secondary uppercase tracking-wider mb-2 z-10">Fulfillment Rate</div>
                     <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">{orderFulfillment}%</div>
                     <div className="flex items-center text-sm font-medium text-success z-10">

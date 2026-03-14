@@ -49,14 +49,6 @@ export const IntroPage = () => {
                 1.5
             );
 
-            // Continuous rotation for main gear
-            tl.to(gearRef.current, {
-                rotation: 360,
-                duration: 20,
-                ease: 'none',
-                repeat: -1
-            }, 3);
-
             // Phase 3 : Text Reveal
             tl.fromTo(title1Ref.current,
                 { opacity: 0, y: 20, filter: 'blur(10px)' },
