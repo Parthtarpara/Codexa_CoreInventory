@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Settings, User, Bell, Shield, Palette } from 'lucide-react';
+import { Settings, User, Bell, Shield } from 'lucide-react';
 import { PageWrapper } from '../../components/layout/PageWrapper';
 import { Card } from '../../components/ui/Card';
 import { Input } from '../../components/ui/Input';
@@ -15,8 +15,7 @@ export const SettingsPage = () => {
     const tabs = [
         { id: 'profile', label: 'Profile' },
         { id: 'security', label: 'Security' },
-        { id: 'notifications', label: 'Notifications' },
-        { id: 'preferences', label: 'Preferences' }
+        { id: 'notifications', label: 'Notifications' }
     ];
 
     const handleSave = (e) => {
@@ -39,8 +38,7 @@ export const SettingsPage = () => {
                         {[
                             { id: 'profile', icon: <User size={18} />, label: 'Personal Profile' },
                             { id: 'security', icon: <Shield size={18} />, label: 'Security & Access' },
-                            { id: 'notifications', icon: <Bell size={18} />, label: 'Notifications' },
-                            { id: 'preferences', icon: <Palette size={18} />, label: 'App Preferences' }
+                            { id: 'notifications', icon: <Bell size={18} />, label: 'Notifications' }
                         ].map(tab => (
                             <button
                                 key={tab.id}
@@ -136,13 +134,7 @@ export const SettingsPage = () => {
                             </div>
                         )}
 
-                        {activeTab === 'preferences' && (
-                            <div className="flex flex-col items-center justify-center py-8 text-text-secondary">
-                                <Palette className="mb-4 opacity-50" size={32} />
-                                <p>System is locked to Dark Theme intentionally.</p>
-                                <p className="text-xs mt-2">Premium UX requirements strictly enforce Dark UI.</p>
-                            </div>
-                        )}
+
                     </Card>
                 </div>
             </div>
