@@ -31,7 +31,7 @@ export const AuthLayout = ({ children }) => {
                         <div className="w-10 h-10 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                             <span className="font-orbitron font-bold text-black text-lg">CI</span>
                         </div>
-                        <span className="font-orbitron font-bold text-white text-xl tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
                     </Link>
                 </div>
 
@@ -41,7 +41,7 @@ export const AuthLayout = ({ children }) => {
                         <span className="text-accent-yellow text-glow">operational excellence.</span>"
                     </h2>
                     <p className="text-text-secondary font-space">
-                        Join thousands of warehouse professionals using CoreInventory to eliminate stockouts and perfect order fulfillment.
+                        Join thousands of warehouse professionals using Inventorium to eliminate stockouts and perfect order fulfillment.
                     </p>
                 </div>
             </div>
@@ -59,7 +59,7 @@ export const AuthLayout = ({ children }) => {
                         <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                             <span className="font-orbitron font-bold text-black text-sm">CI</span>
                         </div>
-                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
                     </Link>
 
                     <AnimatePresence mode="wait">

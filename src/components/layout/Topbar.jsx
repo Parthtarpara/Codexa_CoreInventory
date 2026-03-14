@@ -24,7 +24,7 @@ export const Topbar = () => {
                 <div className="flex items-center gap-4">
                     <h1 className="text-xl font-orbitron font-medium text-white">{pageTitle}</h1>
                     <div className="hidden md:flex items-center text-xs font-medium text-text-secondary uppercase tracking-wider">
-                        <span>CoreInventory</span>
+                        <span>INVENTORIUM</span>
                         <span className="mx-2">/</span>
                         <span className="text-accent-yellow">{pageTitle}</span>
                     </div>

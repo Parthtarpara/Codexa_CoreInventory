@@ -70,7 +70,7 @@ export const LandingPage = () => {
                     <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                         <span className="font-orbitron font-bold text-black text-sm">CI</span>
                     </div>
-                    <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                    <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
                 </Link>
                 <div className="hidden md:flex gap-6">
                     <button 
@@ -147,7 +147,7 @@ export const LandingPage = () => {
                                 transition={{ delay: 0.8, duration: 0.6 }}
                                 className="text-text-secondary text-lg md:text-xl max-w-xl mb-10 leading-relaxed font-space"
                             >
-                                CoreInventory gives warehouse teams real-time visibility across stock, transfers, and deliveries — built for operations that cannot afford to guess.
+                                Inventorium gives warehouse teams real-time visibility across stock, transfers, and deliveries — built for operations that cannot afford to guess.
                             </motion.p>
 
                             <motion.div
@@ -235,7 +235,7 @@ export const LandingPage = () => {
                 {/* SOCIAL PROOF BAR */}
                 <section className="w-full border-y border-white/5 bg-primary/50 overflow-hidden py-4">
                     <div className="whitespace-nowrap flex gap-4 pr-4 text-text-secondary/60 text-sm tracking-widest font-space font-medium uppercase animate-[marquee_20s_linear_infinite] select-none">
-                        Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution • Zenith Manufacturing • CoreInventory Intelligence • Precision Systems • Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution •
+                        Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution • Zenith Manufacturing • Inventorium Intelligence • Precision Systems • Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution •
                     </div>
                     <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
                 </section>
@@ -279,7 +279,7 @@ export const LandingPage = () => {
                         <div className="w-6 h-6 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded shrink-0">
                             <span className="font-orbitron font-bold text-black text-[10px]">CI</span>
                         </div>
-                        <span className="font-orbitron font-bold text-white opacity-80 text-sm">CoreInventory</span>
+                        <span className="font-orbitron font-bold text-white opacity-80 text-sm">INVENTORIUM</span>
                     </div>
                     <div className="flex gap-6 text-sm text-text-secondary">
                         <a href="#" className="hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Support</a>
@@ -287,7 +287,7 @@ export const LandingPage = () => {
                         <a href="#" className="hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Privacy</a>
                     </div>
                     <div className="text-text-secondary text-sm">
-                        &copy; 2025 CoreInventory
+                        &copy; 2025 INVENTORIUM
                     </div>
                 </div>
             </footer>

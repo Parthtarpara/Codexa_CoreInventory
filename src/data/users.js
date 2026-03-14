@@ -1,26 +1,23 @@
 export const users = [
     {
-        id: 'usr_01',
+        id: 'u1',
         name: 'Sarah Chen',
-        email: 'sarah.chen@coreinventory.com',
-        role: 'Admin',
-        avatar: 'https://i.pravatar.cc/150?u=sarah',
-        lastActive: 'Just now'
+        email: 'sarah.chen@inventorium.io',
+        role: 'Warehouse Admin',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150'
     },
     {
-        id: 'usr_02',
-        name: 'Marcus Johnson',
-        email: 'mjohnson@coreinventory.com',
-        role: 'Manager',
-        avatar: 'https://i.pravatar.cc/150?u=marcus',
-        lastActive: '2h ago'
+        id: 'u2',
+        name: 'Michael Johnson',
+        email: 'mjohnson@inventorium.io',
+        role: 'Inventory Manager',
+        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150'
     },
     {
-        id: 'usr_03',
+        id: 'u3',
         name: 'Elena Rodriguez',
-        email: 'erodriguez@coreinventory.com',
-        role: 'Operator',
-        avatar: 'https://i.pravatar.cc/150?u=elena',
-        lastActive: '5h ago'
+        email: 'erodriguez@inventorium.io',
+        role: 'Operations Lead',
+        avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150'
     }
 ];

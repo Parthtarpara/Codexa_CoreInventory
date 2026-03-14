@@ -112,7 +112,7 @@ export const Sidebar = () => {
                             exit={{ opacity: 0 }}
                             className="font-orbitron font-bold text-white text-lg tracking-wide group-hover:text-accent-yellow transition-colors"
                         >
-                            CoreInventory
+                            INVENTORIUM
                         </motion.span>
                     )}
                 </Link>

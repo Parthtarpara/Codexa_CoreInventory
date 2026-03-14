@@ -184,7 +184,7 @@ export const IntroPage = () => {
 
                 <div ref={textContainerRef} className="flex flex-col items-center">
                     <h1 ref={title1Ref} className="text-4xl md:text-6xl font-orbitron font-bold text-white tracking-wider">
-                        COREINVENTORY<span className="text-accent-yellow">.</span>
+                        INVENTORIUM<span className="text-accent-yellow">.</span>
                     </h1>
 
                     <div className="title-line w-full h-[2px] bg-gradient-to-r from-transparent via-accent-yellow to-transparent mt-4 mb-6" />

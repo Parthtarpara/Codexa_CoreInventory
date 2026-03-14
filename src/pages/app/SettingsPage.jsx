@@ -113,7 +113,7 @@ export const SettingsPage = () => {
                                     {[
                                         { id: 'n1', label: 'Low Stock Alerts', desc: 'Receive immediate alerts when items hit reorder points.' },
                                         { id: 'n2', label: 'Delivery Dispatches', desc: 'Get notified when outgoing DOs leave the facility.' },
-                                        { id: 'n3', label: 'System Updates', desc: 'Information about CoreInventory maintenance.' }
+                                        { id: 'n3', label: 'System Updates', desc: 'Information about Inventorium maintenance.' }
                                     ].map(notif => (
                                         <div key={notif.id} className="flex items-start justify-between p-3 bg-primary border border-border rounded hover:border-accent-yellow/30 transition-colors">
                                             <div>

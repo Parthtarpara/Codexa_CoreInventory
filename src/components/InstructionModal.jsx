@@ -14,9 +14,9 @@ const steps = [
     description: "Use the Receipts section when new goods arrive from suppliers. Entering quantities automatically increases stock levels."
   },
   {
-    icon: <MapPin className="text-accent-yellow" size={24} />,
+    icon: <Globe className="text-accent-yellow" size={24} />,
     title: "Step 3 — Track Stock Across Locations",
-    description: "Each product can exist in different warehouses or locations. CoreInventory shows exactly where every unit is stored."
+    description: "Each product can exist in different warehouses or locations. Inventorium shows exactly where every unit is stored."
   },
   {
     icon: <Truck className="text-accent-yellow" size={24} />,
