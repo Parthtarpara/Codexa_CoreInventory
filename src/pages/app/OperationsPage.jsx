@@ -16,7 +16,8 @@ import {
     Clock,
     AlertCircle,
     ChevronDown,
-    SlidersHorizontal
+    SlidersHorizontal,
+    Trash2
 } from 'lucide-react';
 import { PageWrapper } from '../../components/layout/PageWrapper';
 import { Table } from '../../components/ui/Table';
@@ -80,8 +81,23 @@ export const OperationsPage = ({ type }) => {
     const [statusFilter, setStatusFilter] = useState('');
     const [warehouseFilter, setWarehouseFilter] = useState('');
     const [dateFilter, setDateFilter] = useState(''); // Today, Last 7 Days, etc
+    const [operatorFilter, setOperatorFilter] = useState('');
 
     // Dynamic Filter Options
+    const statusOptions = useMemo(() => {
+        let rawData = [];
+        if (type === 'receipts' || type === 'deliveries') {
+            rawData = store[config.dataKey] || [];
+        } else {
+            rawData = store.transactions?.filter(t => t.type.toLowerCase() === type.slice(0, -1)) || [];
+        }
+        const statuses = [...new Set(rawData.map(item => item.status).filter(Boolean))];
+        return [
+            { value: '', label: 'All Statuses' },
+            ...statuses.map(s => ({ value: s, label: s }))
+        ];
+    }, [type, store, config.dataKey]);
+
     const dynamicOptions = useMemo(() => {
         if (type === 'receipts') {
             const suppliers = [...new Set(store.receipts.map(r => r.supplier).filter(Boolean))];
@@ -141,9 +157,11 @@ export const OperationsPage = ({ type }) => {
                 matchDate = new Date(item.date) >= limit;
             }
 
-            return matchSearch && matchStatus && matchEntity && matchDate;
+            const matchOperator = operatorFilter ? item.user === operatorFilter : true;
+
+            return matchSearch && matchStatus && matchEntity && matchDate && matchOperator;
         });
-    }, [store, type, config.dataKey, debouncedTerm, statusFilter, warehouseFilter, dateFilter]);
+    }, [store, type, config.dataKey, debouncedTerm, statusFilter, warehouseFilter, dateFilter, operatorFilter]);
 
     // Dynamic Columns
     const columns = useMemo(() => {
@@ -215,6 +233,21 @@ export const OperationsPage = ({ type }) => {
                     >
                         <FileCheck2 size={14} />
                     </button>
+                    <button 
+                        onClick={() => {
+                            const deleteFn = type === 'receipts' ? store.deleteReceipt : 
+                                             type === 'deliveries' ? store.deleteDelivery : 
+                                             store.deleteTransaction;
+                            
+                            if (window.confirm('Are you sure you want to delete this record?')) {
+                                deleteFn(info.row.original.id);
+                                toast.success(`Record ${info.row.original.id} deleted`);
+                            }
+                        }}
+                        className="p-1.5 text-text-secondary hover:text-danger bg-elevated rounded transition-colors"
+                    >
+                        <Trash2 size={14} />
+                    </button>
                 </div>
             )
         });
@@ -274,13 +307,7 @@ export const OperationsPage = ({ type }) => {
                             <div className="p-4 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                 <Select 
                                     label="Status"
-                                    options={[
-                                        { value: '', label: 'All Statuses' },
-                                        { value: 'Completed', label: 'Completed' },
-                                        { value: 'Processing', label: 'Processing' },
-                                        { value: 'Pending', label: 'Pending' },
-                                        { value: 'Cancelled', label: 'Cancelled' }
-                                    ]}
+                                    options={statusOptions}
                                     value={statusFilter}
                                     onChange={e => setStatusFilter(e.target.value)}
                                 />
@@ -301,6 +328,17 @@ export const OperationsPage = ({ type }) => {
                                     value={dateFilter}
                                     onChange={e => setDateFilter(e.target.value)}
                                 />
+                                {(type === 'transfers' || type === 'adjustments') && (
+                                    <Select 
+                                        label="Operator"
+                                        options={[
+                                            { value: '', label: 'All Operators' },
+                                            ...[...new Set(data.map(t => t.user).filter(Boolean))].map(u => ({ value: u, label: u }))
+                                        ]}
+                                        value={operatorFilter}
+                                        onChange={e => setOperatorFilter(e.target.value)}
+                                    />
+                                )}
                                 <div className="flex items-end">
                                     <Button 
                                         variant="ghost" 
@@ -309,6 +347,7 @@ export const OperationsPage = ({ type }) => {
                                             setStatusFilter('');
                                             setWarehouseFilter('');
                                             setDateFilter('');
+                                            setOperatorFilter('');
                                         }}
                                     >
                                         <X size={14} className="mr-2" /> Clear All
@@ -368,7 +407,7 @@ export const OperationsPage = ({ type }) => {
                                 <div>
                                     <div className="text-xs text-text-secondary">Facility Hub</div>
                                     <div className="text-white font-medium flex items-center gap-1">
-                                        <Warehouse size={12} /> {store.warehouses.find(w => w.id === selectedItem.warehouse)?.name || 'HQ Zone'}
+                                    <Warehouse size={12} /> {store.warehouses.find(w => w.id === (selectedItem.warehouse || selectedItem.origin || selectedItem.destination))?.name || 'Internal Hub'}
                                     </div>
                                 </div>
                             </div>
@@ -413,8 +452,12 @@ export const OperationsPage = ({ type }) => {
                                 <button
                                     key={status}
                                     onClick={() => {
-                                        // Normally we'd call the store update here
-                                        toast.success(`Status updated to ${status}`);
+                                        const updateFn = type === 'receipts' ? store.updateReceipt : 
+                                                         type === 'deliveries' ? store.updateDelivery : 
+                                                         store.updateTransaction;
+                                        
+                                        updateFn(selectedItem.id, { status });
+                                        toast.success(`ID: ${selectedItem.id} marked as ${status}`);
                                         setIsEditModalOpen(false);
                                     }}
                                     className={`p-3 rounded border text-left flex items-center justify-between transition-all group

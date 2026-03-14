@@ -14,22 +14,22 @@ export const Select = forwardRef(({
 
     return (
         <div className={`flex flex-col gap-1.5 ${wrapperClassName}`}>
-            {label && <label className="text-sm text-text-secondary font-medium">{label}</label>}
+            {label && <label className="text-xs text-white/50 font-orbitron font-bold uppercase tracking-widest">{label}</label>}
 
             <div className="relative">
                 <select
                     ref={ref}
                     onMouseEnter={() => setHover('link')}
                     onMouseLeave={() => setHover('default')}
-                    className={`appearance-none w-full bg-elevated border border-border text-white px-3 py-2 pr-10
-            focus:outline-none focus:border-accent-yellow focus:shadow-[0_0_8px_rgba(245,196,0,0.2)] 
-            transition-all cursor-pointer
+                    className={`appearance-none w-full bg-elevated border border-border text-white px-3 py-2.5 pr-10 rounded-sm
+            focus:outline-none focus:border-accent-yellow focus:shadow-[0_0_12px_rgba(245,196,0,0.15)] 
+            transition-all cursor-pointer font-space
             ${error ? 'border-danger focus:border-danger focus:shadow-[0_0_8px_rgba(255,68,68,0.2)]' : ''} 
             ${className}`}
                     {...props}
                 >
                     {options.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
+                        <option key={opt.value} value={opt.value} className="bg-[#1a1a1a] text-white">
                             {opt.label}
                         </option>
                     ))}
