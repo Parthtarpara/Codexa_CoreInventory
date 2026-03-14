@@ -25,6 +25,7 @@ import { OTPVerify } from './pages/auth/OTPVerify';
 import { DashboardPage } from './pages/app/DashboardPage';
 import { HomePage } from './pages/app/HomePage';
 import { ProductsPage } from './pages/app/ProductsPage';
+import { CategoriesPage } from './pages/app/CategoriesPage';
 import { WarehousePage } from './pages/app/WarehousePage';
 import { StockOverviewPage } from './pages/app/StockOverviewPage';
 import { OperationsPage } from './pages/app/OperationsPage';
@@ -93,7 +94,7 @@ const App = () => {
           <Route path="home" element={<HomePage />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
-          <Route path="categories" element={<ProductsPage />} /> {/* Categories redirect to Products for this demo */}
+          <Route path="categories" element={<CategoriesPage />} />
           <Route path="warehouses" element={<WarehousePage />} />
           <Route path="stock" element={<StockOverviewPage />} />
           <Route path="receipts" element={<OperationsPage type="receipts" />} />

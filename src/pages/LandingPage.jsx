@@ -1,16 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ArrowRight, PackageOpen, Layers, BellRing, FileText, ArrowLeftRight, Clock } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useUIStore } from '../store/useUIStore';
+import { InstructionModal } from '../components/InstructionModal';
+import { InfoModal } from '../components/InfoModal';
 
 export const LandingPage = () => {
     const navigate = useNavigate();
     const setHover = useUIStore(s => s.setCursorHoverState);
     const headlineRef = useRef(null);
     const containerRef = useRef(null);
+    const [isInstructionOpen, setIsInstructionOpen] = useState(false);
+    const [infoModalData, setInfoModalData] = useState({ isOpen: false, title: '', content: '' });
 
     const { scrollY } = useScroll();
 
@@ -54,9 +58,56 @@ export const LandingPage = () => {
                     <span className="font-orbitron font-bold text-white tracking-wide">CoreInventory</span>
                 </div>
                 <div className="hidden md:flex gap-6">
-                    <button className="text-sm text-text-secondary hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Features</button>
-                    <button className="text-sm text-text-secondary hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Solutions</button>
-                    <button className="text-sm text-text-secondary hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Pricing</button>
+                    <button 
+                        className="text-sm text-text-secondary hover:text-white transition-colors" 
+                        onMouseEnter={() => setHover('link')} 
+                        onMouseLeave={() => setHover('default')}
+                        onClick={() => setInfoModalData({ 
+                            isOpen: true, 
+                            title: 'Features', 
+                            content: [
+                                'Real-Time Sync: Infrastructure that updates stock levels across all zones in under 2 seconds.',
+                                'Multi-Warehouse Visibility: One pane of glass for all your global or regional distribution hubs.',
+                                'Predictive Alerts: AI-driven notifications that prevent stockouts before they impact your customers.',
+                                'Immutable Audit Ledger: A complete, cryptographic trail of every single inventory movement.'
+                            ]
+                        })}
+                    >
+                        Features
+                    </button>
+                    <button 
+                        className="text-sm text-text-secondary hover:text-white transition-colors" 
+                        onMouseEnter={() => setHover('link')} 
+                        onMouseLeave={() => setHover('default')}
+                        onClick={() => setInfoModalData({ 
+                            isOpen: true, 
+                            title: 'Solutions', 
+                            content: [
+                                '3PL & Logistics: Scalable multi-tenant visibility for complex third-party distribution.',
+                                'Manufacturing: Track raw materials to finished goods with precise location tracking.',
+                                'E-Commerce: High-velocity stock sync for Shopify, Amazon, and custom storefronts.',
+                                'Retail Networks: Manage internal transfers and local stock across hundreds of branch locations.'
+                            ]
+                        })}
+                    >
+                        Solutions
+                    </button>
+                    <button 
+                        className="text-sm text-text-secondary hover:text-white transition-colors" 
+                        onMouseEnter={() => setHover('link')} 
+                        onMouseLeave={() => setHover('default')}
+                        onClick={() => setInfoModalData({ 
+                            isOpen: true, 
+                            title: 'Pricing', 
+                            content: [
+                                { tier: 'Starter', details: 'Free forever. Up to 100 SKUs, single warehouse location, basic stock tracking, and community support.' },
+                                { tier: 'Professional', details: '$49/month. Unlimited SKUs, multi-warehouse sync, predictive alerts, and advanced reporting tools.' },
+                                { tier: 'Enterprise', details: 'Custom pricing. Dedicated support, full API access, custom integrations, and 24/7 priority response.' }
+                            ]
+                        })}
+                    >
+                        Pricing
+                    </button>
                 </div>
                 <Button variant="ghost" onClick={() => navigate('/auth/login')} className="border-border">Sign In</Button>
             </nav>
@@ -92,7 +143,12 @@ export const LandingPage = () => {
                                 <Button size="lg" onClick={() => navigate('/app')} className="group font-bold text-black border-accent-yellow">
                                     Enter the System <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
                                 </Button>
-                                <Button variant="ghost" size="lg" className="border-white/20 hover:border-accent-yellow hover:text-accent-yellow">
+                                <Button 
+                                    variant="ghost" 
+                                    size="lg" 
+                                    className="border-white/20 hover:border-accent-yellow hover:text-accent-yellow"
+                                    onClick={() => setIsInstructionOpen(true)}
+                                >
                                     See How It Works
                                 </Button>
                             </motion.div>
@@ -224,6 +280,16 @@ export const LandingPage = () => {
                     <div className="text-text-secondary text-sm">&copy; 2025 CoreInventory</div>
                 </div>
             </footer>
+            <InstructionModal 
+                isOpen={isInstructionOpen} 
+                onClose={() => setIsInstructionOpen(false)} 
+            />
+            <InfoModal 
+                isOpen={infoModalData.isOpen}
+                onClose={() => setInfoModalData({ ...infoModalData, isOpen: false })}
+                title={infoModalData.title}
+                content={infoModalData.content}
+            />
         </div>
     );
 };

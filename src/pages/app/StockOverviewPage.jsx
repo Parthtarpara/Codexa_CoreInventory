@@ -1,15 +1,20 @@
-import { useMemo } from 'react';
-import { Package, AlertTriangle, ArrowRight, Server, Box } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Package, AlertTriangle, ArrowRight, Server, Box, Eye } from 'lucide-react';
 import { PageWrapper } from '../../components/layout/PageWrapper';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
 import { Table } from '../../components/ui/Table';
+import { Modal } from '../../components/ui/Modal';
+import { Button } from '../../components/ui/Button';
 import { useInventoryStore } from '../../store/useInventoryStore';
 import { useUIStore } from '../../store/useUIStore';
+import { formatCurrency } from '../../utils/formatters';
 
 export const StockOverviewPage = () => {
     const { products, categories, warehouses } = useInventoryStore();
     const setHover = useUIStore(s => s.setCursorHoverState);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
     const outOfStock = products.filter(p => p.quantity === 0);
     const lowStock = products.filter(p => p.quantity > 0 && p.quantity <= p.reorderPoint);
@@ -26,12 +31,27 @@ export const StockOverviewPage = () => {
     }, [categories, products]);
 
     const alertColumns = [
-        { accessorKey: 'sku', header: 'SKU', cell: info => <span className="font-orbitron font-medium">{info.getValue()}</span> },
-        { accessorKey: 'name', header: 'Product Name' },
+        { accessorKey: 'sku', header: 'SKU', cell: info => <span className="font-orbitron font-medium text-accent-yellow">{info.getValue()}</span> },
+        { accessorKey: 'name', header: 'Product Name', cell: info => <span className="font-medium text-white">{info.getValue()}</span> },
         { accessorKey: 'warehouse', header: 'Location', cell: info => warehouses.find(w => w.id === info.getValue())?.name || info.getValue() },
         { accessorKey: 'quantity', header: 'Current Qty', cell: info => <span className={`font-orbitron font-bold ${info.getValue() === 0 ? 'text-danger' : 'text-warning'}`}>{info.getValue()}</span> },
         { accessorKey: 'reorderPoint', header: 'Reorder At', cell: info => <span className="font-orbitron text-text-secondary">{info.getValue()}</span> },
-        { accessorKey: 'status', header: 'Status', cell: info => <Badge status={info.getValue()} /> }
+        { accessorKey: 'status', header: 'Status', cell: info => <Badge status={info.getValue()} /> },
+        {
+            id: 'actions',
+            header: 'Actions',
+            cell: info => (
+                <button 
+                    onClick={() => {
+                        setSelectedProduct(info.row.original);
+                        setIsViewModalOpen(true);
+                    }}
+                    className="p-1.5 text-text-secondary hover:text-white bg-elevated rounded transition-colors"
+                >
+                    <Eye size={14} />
+                </button>
+            )
+        }
     ];
 
     return (
@@ -109,6 +129,67 @@ export const StockOverviewPage = () => {
                     pageSize={5}
                 />
             </Card>
+            {/* View Product Modal */}
+            <Modal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} title="Critical Item Details">
+                {selectedProduct && (
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-6 p-4 bg-elevated border border-danger/30 rounded relative overflow-hidden">
+                            <div className="p-4 bg-primary rounded border border-border/50 text-danger">
+                                <Package size={40} />
+                            </div>
+                            <div>
+                                <h3 className="text-2xl font-bold text-white mb-1">{selectedProduct.name}</h3>
+                                <div className="font-orbitron text-accent-yellow text-sm tracking-wider">{selectedProduct.sku}</div>
+                            </div>
+                            <div className="absolute top-4 right-4">
+                                <Badge status={selectedProduct.status} />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="p-3 bg-surface border border-border/30 rounded">
+                                <div className="text-[10px] text-text-secondary uppercase tracking-widest mb-1">Catalog Category</div>
+                                <div className="text-white">{categories.find(c => c.id === selectedProduct.category)?.name || 'Misc'}</div>
+                            </div>
+                            <div className="p-3 bg-surface border border-border/30 rounded">
+                                <div className="text-[10px] text-text-secondary uppercase tracking-widest mb-1">Current Hub</div>
+                                <div className="text-white">{warehouses.find(w => w.id === selectedProduct.warehouse)?.name || 'HQ'}</div>
+                            </div>
+                        </div>
+
+                        <div className="p-4 bg-warning/5 border border-warning/20 rounded-sm">
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-sm font-medium text-warning flex items-center gap-2">
+                                    <AlertTriangle size={14} /> Replenishment Alert
+                                </span>
+                                <span className="text-xs font-orbitron text-warning/70">Threshold: {selectedProduct.reorderPoint}</span>
+                            </div>
+                            <p className="text-xs text-text-secondary">
+                                This item has reached a critical level. Immediate replenishment is required to prevent fulfillment delays.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="p-3 bg-primary border border-border/50 rounded flex flex-col items-center justify-center text-center">
+                                <div className="text-[10px] text-text-secondary uppercase mb-1">Current Units</div>
+                                <div className="text-2xl font-orbitron font-bold text-danger">
+                                    {selectedProduct.quantity}
+                                </div>
+                            </div>
+                            <div className="p-3 bg-primary border border-border/50 rounded flex flex-col items-center justify-center text-center">
+                                <div className="text-[10px] text-text-secondary uppercase mb-1">Stock Value</div>
+                                <div className="text-2xl font-orbitron font-bold text-accent-yellow">
+                                    {formatCurrency(selectedProduct.quantity * selectedProduct.unitPrice)}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end pt-4 border-t border-border">
+                            <Button onClick={() => setIsViewModalOpen(false)}>Acknowledged</Button>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </PageWrapper>
     );
 };
