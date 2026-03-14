@@ -35,7 +35,7 @@ export const AnalyticsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="border-border flex flex-col justify-center relative overflow-hidden group">
                     <div className="text-sm text-text-secondary uppercase tracking-wider mb-2 z-10">Inventory Value Trajectory</div>
-                    <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">${(totalValue / 1000).toFixed(1)}k</div>
+                    <div className="text-3xl font-orbitron font-bold text-white mb-2 z-10">₹{(totalValue / 1000).toFixed(1)}k</div>
                     <div className="flex items-center text-sm font-medium text-success z-10">
                         <TrendingUp size={16} className="mr-1" /> +12.5% vs last month
                     </div>

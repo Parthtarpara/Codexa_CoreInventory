@@ -9,7 +9,8 @@ import {
     Box,
     MapPin,
     Clock,
-    ShieldCheck
+    ShieldCheck,
+    User
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PageWrapper } from '../../components/layout/PageWrapper';
@@ -151,7 +152,9 @@ export const HomePage = () => {
                 <div className="lg:col-span-4">
                     <Card className="h-full bg-surface/50 border-border/40">
                         <div className="flex flex-col items-center text-center py-6">
-                            <img src={currentUser?.avatar} className="w-20 h-20 rounded-full border-2 border-accent-yellow/30 mb-4 shadow-[0_0_20px_rgba(245,196,0,0.15)]" />
+                            <div className="w-20 h-20 rounded-full border-2 border-accent-yellow/30 mb-4 shadow-[0_0_20px_rgba(245,196,0,0.1)] flex items-center justify-center bg-elevated text-text-secondary">
+                                <User size={40} />
+                            </div>
                             <h4 className="text-white font-orbitron font-bold uppercase tracking-widest">{currentUser?.name}</h4>
                             <div className="text-xs text-accent-yellow mt-1">{currentUser?.role}</div>
 

@@ -360,7 +360,7 @@ export const ProductsPage = () => {
                     <div className="grid grid-cols-3 gap-4">
                         <Input label="Initial Qty" type="number" defaultValue={0} min={0} required />
                         <Input label="Reorder Point" type="number" defaultValue={10} min={0} required />
-                        <Input label="Unit Price ($)" type="number" step="0.01" defaultValue={0.00} required />
+                        <Input label="Unit Price (₹)" type="number" step="0.01" defaultValue={0.00} required />
                     </div>
 
                     <div className="flex flex-col gap-1.5">
@@ -409,7 +409,7 @@ export const ProductsPage = () => {
                         <div className="grid grid-cols-3 gap-4">
                             <Input name="quantity" label="Current Qty" type="number" defaultValue={selectedProduct.quantity} min={0} required />
                             <Input name="reorderPoint" label="Reorder Point" type="number" defaultValue={selectedProduct.reorderPoint} min={0} required />
-                            <Input name="unitPrice" label="Unit Price ($)" type="number" step="0.01" defaultValue={selectedProduct.unitPrice} required />
+                            <Input name="unitPrice" label="Unit Price (₹)" type="number" step="0.01" defaultValue={selectedProduct.unitPrice} required />
                         </div>
 
                         <div className="flex justify-end gap-3 pt-6 mt-4 border-t border-border">

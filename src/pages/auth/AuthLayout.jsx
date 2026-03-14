@@ -28,8 +28,8 @@ export const AuthLayout = ({ children }) => {
                         onMouseLeave={() => setHover('default')}
                         className="flex items-center gap-3 mb-16 group w-fit hover:opacity-80 transition-opacity"
                     >
-                        <div className="w-10 h-10 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
-                            <span className="font-orbitron font-bold text-black text-lg">CI</span>
+                        <div className="w-10 h-10 rounded overflow-hidden">
+                            <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
                         <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
                     </Link>
@@ -56,8 +56,8 @@ export const AuthLayout = ({ children }) => {
                         onMouseLeave={() => setHover('default')}
                         className="flex lg:hidden items-center justify-center gap-2 mb-12 group hover:opacity-80 transition-opacity"
                     >
-                        <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
-                            <span className="font-orbitron font-bold text-black text-sm">CI</span>
+                        <div className="w-8 h-8 rounded overflow-hidden">
+                            <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
                         <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
                     </Link>
