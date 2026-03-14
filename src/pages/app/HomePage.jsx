@@ -60,11 +60,6 @@ export const HomePage = () => {
                         Everything is operational. Found {products.filter(p => p.quantity <= p.reorderPoint).length} critical stock alerts that require your attention today.
                     </p>
                 </motion.div>
-
-                {/* Abstract Background Element */}
-                <div className="absolute top-0 right-0 opacity-20 hidden lg:block pointer-events-none">
-                    <ShieldCheck size={200} className="text-accent-yellow/10" />
-                </div>
             </div>
 
             {/* Grid Layout */}
