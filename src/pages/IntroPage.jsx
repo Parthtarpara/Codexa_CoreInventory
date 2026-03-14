@@ -129,10 +129,10 @@ export const IntroPage = () => {
             className="fixed inset-0 bg-primary overflow-hidden flex flex-col items-center justify-center cursor-pointer select-none"
             onClick={handleContinue}
         >
-            {/* SVG Grid Background */}
-            <div className="bg-grid absolute inset-0 opacity-20"
+            {/* SVG Grid Background with pulse effect */}
+            <div className="bg-grid absolute inset-0 opacity-20 animate-[pulse_8s_infinite]"
                 style={{
-                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+                    backgroundImage: 'linear-gradient(rgba(245,196,0,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(245,196,0,0.08) 1px, transparent 1px)',
                     backgroundSize: '40px 40px'
                 }}
             />

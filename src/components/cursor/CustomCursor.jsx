@@ -1,71 +1,80 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { useUIStore } from '../../store/useUIStore';
 
 export const CustomCursor = () => {
     const hoverState = useUIStore(s => s.cursorHoverState);
+    const cursorRef = useRef(null);
+    const [sparkles, setSparkles] = useState([]);
+    const [isVisible, setIsVisible] = useState(true);
 
-    const dotRef = useRef(null);
-    const ringRef = useRef(null);
+    const onMouseMove = useCallback((e) => {
+        if (!cursorRef.current) return;
 
-    useEffect(() => {
-        if (!dotRef.current || !ringRef.current) return;
+        const { clientX: x, clientY: y } = e;
 
-        const xDot = gsap.quickTo(dotRef.current, "x", { duration: 0.1, ease: "power3" });
-        const yDot = gsap.quickTo(dotRef.current, "y", { duration: 0.1, ease: "power3" });
+        // Move main diamond
+        gsap.to(cursorRef.current, {
+            x, y,
+            duration: 0.1,
+            ease: "power2.out"
+        });
 
-        // Ring has more lag
-        const xRing = gsap.quickTo(ringRef.current, "x", { duration: 0.3, ease: "power3" });
-        const yRing = gsap.quickTo(ringRef.current, "y", { duration: 0.3, ease: "power3" });
+        // Add a sparkle
+        const id = Math.random().toString(36).substr(2, 9);
+        setSparkles(prev => [...prev.slice(-12), { id, x, y }]);
 
-        const onMouseMove = (e) => {
-            // clientX/Y gives position relative to viewport
-            xDot(e.clientX);
-            yDot(e.clientY);
-            xRing(e.clientX);
-            yRing(e.clientY);
-        };
+        // Check for interactive elements to hide custom cursor
+        const target = e.target;
+        const isInput = target.tagName === 'INPUT' ||
+            target.tagName === 'TEXTAREA' ||
+            target.isContentEditable ||
+            target.tagName === 'SELECT';
 
-        window.addEventListener('mousemove', onMouseMove);
-        return () => window.removeEventListener('mousemove', onMouseMove);
+        setIsVisible(!isInput);
     }, []);
 
-    // Determine styles based on hover state
-    let ringClass = "w-9 h-9 rounded-full border border-accent-yellow/50 bg-transparent transition-all duration-300";
-    let dotClass = "w-3 h-3 bg-accent-yellow rounded-full transition-all duration-300";
+    useEffect(() => {
+        window.addEventListener('mousemove', onMouseMove);
+        return () => window.removeEventListener('mousemove', onMouseMove);
+    }, [onMouseMove]);
 
-    switch (hoverState) {
-        case 'button':
-            ringClass = "w-12 h-12 rounded-full border border-accent-yellow bg-accent-yellow/10 transition-all duration-300 scale-110";
-            dotClass = "w-2 h-2 bg-accent-yellow rounded-full transition-all duration-300 opacity-50";
-            break;
-        case 'card':
-            ringClass = "w-12 h-12 rounded border border-accent-yellow/50 bg-transparent transition-all duration-300 rotate-45";
-            dotClass = "w-3 h-3 bg-accent-yellow rounded transition-all duration-300 rotate-45";
-            break;
-        case 'link':
-            ringClass = "w-6 h-6 rounded-full border border-accent-yellow/30 bg-transparent transition-all duration-300 scale-75";
-            dotClass = "w-4 h-4 bg-accent-yellow rounded-full transition-all duration-300 scale-125";
-            break;
-        case 'table-row':
-            ringClass = "w-20 h-2 rounded border border-accent-yellow/30 bg-transparent transition-all duration-300";
-            dotClass = "w-4 h-1 bg-accent-yellow rounded transition-all duration-300";
-            break;
-        default:
-            break;
+    // Handle sparkle cleanup
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setSparkles(prev => prev.slice(1));
+        }, 150);
+        return () => clearInterval(timer);
+    }, []);
+
+    // Diamond size & style based on hover
+    let size = "w-2.5 h-2.5";
+    let glow = "shadow-[0_0_10px_rgba(245,196,0,0.8)]";
+
+    if (hoverState === 'button' || hoverState === 'link') {
+        size = "w-4 h-4";
+        glow = "shadow-[0_0_15px_rgba(245,196,0,1)]";
     }
 
-    // Hide default cursor in CSS but this ensures we don't interfere with clicks
+    if (!isVisible) return null;
+
     return (
-        <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden hidden md:block mix-blend-difference">
+        <div className="pointer-events-none fixed inset-0 z-[100] overflow-hidden hidden md:block mix-blend-screen">
+            {/* Sparkle Trail */}
+            {sparkles.map((s) => (
+                <div
+                    key={s.id}
+                    className="absolute w-1 h-1 bg-accent-yellow rounded-full animate-sparkle"
+                    style={{ left: s.x, top: s.y, transform: 'translate(-50%, -50%)' }}
+                />
+            ))}
+
+            {/* Main Diamond Cursor */}
             <div
-                ref={ringRef}
-                className={`absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 ${ringClass}`}
-            />
-            <div
-                ref={dotRef}
-                className={`absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_8px_rgba(245,196,0,0.8)] ${dotClass}`}
+                ref={cursorRef}
+                className={`absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-accent-yellow ${size} ${glow} transition-all duration-200`}
             />
         </div>
     );
 };
+

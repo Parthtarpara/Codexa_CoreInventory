@@ -42,6 +42,23 @@
     font-family: var(--font-space);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  /* Only show system cursor for inputs and selections */
+  input,
+  textarea,
+  select,
+  [contenteditable="true"],
+  .show-cursor {
+    cursor: auto !important;
+  }
+
+  /* Ensure the custom cursor behaves correctly on links */
+  a,
+  button,
+  .cursor-pointer {
+    cursor: none !important;
   }
 }
 
@@ -61,5 +78,26 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  @keyframes sparkle {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+
+    50% {
+      transform: scale(1) rotate(180deg);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(0) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-sparkle {
+    animation: sparkle 0.8s ease-out forwards;
   }
 }
