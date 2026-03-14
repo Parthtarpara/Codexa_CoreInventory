@@ -6,8 +6,25 @@ export const GearAnimation = forwardRef(({ className = '' }, ref) => {
             {/* Radial Glow */}
             <div className="absolute inset-0 rounded-full bg-accent-yellow/10 blur-[40px] transform scale-150 pointer-events-none" />
 
-            {/* Orbit Ring */}
-            <div className="absolute w-[280px] h-[280px] rounded-full border border-white/5 border-dashed animate-[spin_15s_linear_infinite]" />
+            {/* Oscillating Particle Ring */}
+            <div className="absolute w-[280px] h-[280px] flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                {[...Array(60)].map((_, i) => {
+                    const angle = (i * 360) / 60;
+                    const delay = Math.random() * 2;
+                    const duration = 2 + Math.random() * 2;
+                    return (
+                        <div
+                            key={i}
+                            className="absolute w-1 h-1 bg-accent-yellow/40 rounded-full"
+                            style={{
+                                '--angle': `${angle}deg`,
+                                transform: `rotate(${angle}deg) translateY(-140px)`,
+                                animation: `oscillate ${duration}s ease-in-out ${delay}s infinite alternate`
+                            }}
+                        />
+                    );
+                })}
+            </div>
 
             <svg
                 width="240"
@@ -105,6 +122,10 @@ export const GearAnimation = forwardRef(({ className = '' }, ref) => {
         @keyframes streak {
           0% { left: -150%; top: -10%; }
           30%, 100% { left: 150%; top: 110%; }
+        }
+        @keyframes oscillate {
+          0% { transform: rotate(var(--angle)) translateY(-138px) scale(0.8); opacity: 0.3; }
+          100% { transform: rotate(var(--angle)) translateY(-142px) scale(1.2); opacity: 0.6; }
         }
       `}</style>
         </div>

@@ -33,7 +33,7 @@ export const LandingPage = () => {
 
         gsap.fromTo(lines,
             { y: 50, opacity: 0, rotateX: -45 },
-            { y: 0, opacity: 1, rotateX: 0, duration: 0.8, stagger: 0.2, ease: "power3.out", delay: 0.2 }
+            { y: 0, opacity: 1, rotateX: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.6 }
         );
     }, []);
 
@@ -53,8 +53,12 @@ export const LandingPage = () => {
     ];
 
     return (
-        <div className="bg-primary min-h-screen text-white overflow-x-hidden pt-6">
-
+        <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="bg-primary min-h-screen text-white overflow-x-hidden pt-6"
+        >
             {/* Navbar (Landing) */}
             <nav className="container mx-auto px-6 h-16 flex items-center justify-between border-b border-white/5 relative z-20">
                 <div className="flex items-center gap-3">
@@ -292,6 +296,6 @@ export const LandingPage = () => {
                 title={infoModalData.title}
                 content={infoModalData.content}
             />
-        </div>
+        </motion.div>
     );
 };

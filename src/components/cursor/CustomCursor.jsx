@@ -49,6 +49,8 @@ export const CustomCursor = () => {
             vx: (Math.random() - 0.5) * 0.2,
             size: Math.random() * 1.5 + 0.5,
             baseAlpha: Math.random() * 0.4 + 0.1,
+            phase: Math.random() * Math.PI * 2,
+            radiusOffset: Math.random() * 60 - 30, // Randomize repulsion distance
         }));
 
         let glareParticles = [];
@@ -107,8 +109,14 @@ export const CustomCursor = () => {
                 const dx = p.x - mouse.x;
                 const dy = p.y - mouse.y;
                 const dist = Math.hypot(dx, dy);
-                const repulsionRadius = 180;
                 
+                // Varied repulsion radius to break the perfect circle
+                const repulsionRadius = 150 + p.radiusOffset;
+                
+                // Individual oscillation on "particular axis"
+                const oscillateX = Math.sin(time * 0.02 + p.phase) * 1.5;
+                const oscillateY = Math.cos(time * 0.02 + p.phase) * 1.5;
+
                 if (dist < repulsionRadius) {
                     const force = Math.pow((repulsionRadius - dist) / repulsionRadius, 2);
                     p.x += (dx / dist) * force * 5;
@@ -118,14 +126,18 @@ export const CustomCursor = () => {
                     p.y += p.vy;
                 }
 
-                if (p.x < -10) p.x = width + 10;
-                if (p.x > width + 10) p.x = -10;
-                if (p.y < -10) p.y = height + 10;
-                if (p.y > height + 10) p.y = -10;
+                // Constantly apply individual oscillation for organic feel
+                const renderX = p.x + oscillateX;
+                const renderY = p.y + oscillateY;
+
+                if (p.x < -20) p.x = width + 20;
+                if (p.x > width + 20) p.x = -20;
+                if (p.y < -20) p.y = height + 20;
+                if (p.y > height + 20) p.y = -20;
 
                 ctx.fillStyle = `rgba(245, 196, 0, ${p.baseAlpha})`;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.arc(renderX, renderY, p.size, 0, Math.PI * 2);
                 ctx.fill();
             });
 

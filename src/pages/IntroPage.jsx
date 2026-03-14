@@ -15,6 +15,7 @@ export const IntroPage = () => {
     const initTextRef = useRef(null);
 
     const [typedText, setTypedText] = useState('');
+    const [typedSlogan, setTypedSlogan] = useState('');
     const [phaseDone, setPhaseDone] = useState(false);
     const setIntroShown = useUIStore(s => s.setIntroShown);
 
@@ -75,10 +76,19 @@ export const IntroPage = () => {
                     3.4
                 )
                 .fromTo(title2Ref.current,
-                    { opacity: 0, letterSpacing: '0px' },
-                    { opacity: 1, letterSpacing: '4px', duration: 0.8, ease: 'power2.out' },
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.1 },
                     3.8
                 )
+                .to({ val: 0 }, {
+                    val: 32,
+                    duration: 1.5,
+                    ease: "none",
+                    onUpdate: function() {
+                        const slogan = "PRECISION INVENTORY INTELLIGENCE";
+                        setTypedSlogan(slogan.substring(0, Math.ceil(this.targets()[0].val)));
+                    }
+                }, 3.8)
                 .fromTo(title3Ref.current,
                     { opacity: 0 },
                     { opacity: 1, duration: 0.5, onComplete: () => setPhaseDone(true) },
@@ -179,8 +189,11 @@ export const IntroPage = () => {
 
                     <div className="title-line w-full h-[2px] bg-gradient-to-r from-transparent via-accent-yellow to-transparent mt-4 mb-6" />
 
-                    <p ref={title2Ref} className="text-sm md:text-base font-space text-text-secondary uppercase">
-                        Precision Inventory Intelligence
+                    <p ref={title2Ref} className="text-sm md:text-base font-space text-text-secondary uppercase tracking-[4px] min-h-[1.5em]">
+                        {typedSlogan}
+                        {typedSlogan.length > 0 && typedSlogan.length < 32 && (
+                            <span className="w-1.5 h-3 ml-1 bg-accent-yellow inline-block animate-pulse" />
+                        )}
                     </p>
                 </div>
             </div>
