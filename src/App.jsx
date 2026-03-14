@@ -81,7 +81,11 @@ const App = () => {
           isAuthenticated ? <Navigate to="/app" replace /> :
             !introShown ? <IntroPage /> : <Navigate to="/landing" replace />
         } />
-        <Route path="/landing" element={<PublicRoute><LandingPage /></PublicRoute>} />
+        <Route path="/landing" element={
+          <PublicRoute>
+            {!introShown ? <Navigate to="/" replace /> : <LandingPage />}
+          </PublicRoute>
+        } />
 
         {/* Auth Routes */}
         <Route path="/auth">

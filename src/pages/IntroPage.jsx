@@ -49,6 +49,20 @@ export const IntroPage = () => {
                 1.5
             );
 
+            // Continuous rotation for gears
+            gsap.to('.gear-main', {
+                rotation: 360,
+                duration: 20,
+                ease: 'none',
+                repeat: -1
+            });
+            gsap.to('.gear-sub', {
+                rotation: -504,
+                duration: 20,
+                ease: 'none',
+                repeat: -1
+            });
+
             // Phase 3 : Text Reveal
             tl.fromTo(title1Ref.current,
                 { opacity: 0, y: 20, filter: 'blur(10px)' },
@@ -91,22 +105,30 @@ export const IntroPage = () => {
 
         // Hide text instantly
         tl.to(textContainerRef.current, { opacity: 0, duration: 0.2 })
-            // Accelerate and zoom gear
-            .to(gearRef.current, {
-                scale: 30,
-                rotation: "+=270",
-                duration: 1.4,
+            // Roll gears in their respective directions
+            .to('.gear-main', {
+                rotation: "+=360",
+                duration: 1.2,
                 ease: 'power3.in'
             }, 0)
-            // Warp grid background
+            .to('.gear-sub', {
+                rotation: "-=504",
+                duration: 1.2,
+                ease: 'power3.in'
+            }, 0)
+            // Warp grid background slightly
             .to(".bg-grid", {
-                scale: 2,
+                scale: 1.5,
                 opacity: 0,
-                duration: 1.4,
-                ease: 'power3.in'
+                duration: 1.2,
+                ease: 'power2.in'
             }, 0)
-            // White flash at peak zoom
-            .to(flashRef.current, { opacity: 1, duration: 0.12 }, 1.3);
+            // Fade out the entire screen
+            .to(containerRef.current, {
+                opacity: 0,
+                duration: 1.2,
+                ease: 'power2.inOut'
+            }, 0);
     };
 
     // Listen for Enter key
