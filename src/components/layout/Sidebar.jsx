@@ -171,19 +171,24 @@ export const Sidebar = () => {
             {/* User Footer */}
             <div className="p-4 border-t border-border mt-auto">
                 <div className={`flex items-center ${sidebarExpanded ? 'justify-between' : 'justify-center'} gap-3`}>
-                    <div className="flex items-center gap-3 overflow-hidden">
+                    <Link
+                        to="/app/settings"
+                        onMouseEnter={() => setCursorHoverState('link')}
+                        onMouseLeave={() => setCursorHoverState('default')}
+                        className="flex items-center gap-3 overflow-hidden group hover:bg-white/5 p-1 rounded transition-colors cursor-pointer"
+                    >
                         <img
                             src={currentUser?.avatar}
                             alt={currentUser?.name}
-                            className="w-8 h-8 rounded-full border border-border shrink-0"
+                            className="w-8 h-8 rounded-full border border-border shrink-0 group-hover:border-accent-yellow transition-colors"
                         />
                         {sidebarExpanded && (
                             <div className="flex flex-col">
-                                <span className="text-sm font-medium text-white truncate w-24">{currentUser?.name}</span>
+                                <span className="text-sm font-medium text-white truncate w-24 group-hover:text-accent-yellow transition-colors">{currentUser?.name}</span>
                                 <span className="text-[10px] text-text-secondary uppercase tracking-wider">{currentUser?.role}</span>
                             </div>
                         )}
-                    </div>
+                    </Link>
 
                     {sidebarExpanded && (
                         <button
