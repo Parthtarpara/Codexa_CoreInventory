@@ -1,8 +1,11 @@
 import { ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, Link } from 'react-router-dom';
+import { useUIStore } from '../../store/useUIStore';
 import { GearAnimation } from '../../components/intro/GearAnimation';
 
 export const AuthLayout = ({ children }) => {
+    const setHover = useUIStore(s => s.setCursorHoverState);
     return (
         <div className="min-h-screen bg-primary flex overflow-hidden selection:bg-accent-yellow/30">
             {/* Left Panel - Branding & Visuals (Hidden on small screens) */}
@@ -19,12 +22,17 @@ export const AuthLayout = ({ children }) => {
                 </div>
 
                 <div className="relative z-10 w-full max-w-lg mb-auto">
-                    <div className="flex items-center gap-3 mb-16">
+                    <Link 
+                        to="/landing"
+                        onMouseEnter={() => setHover('link')}
+                        onMouseLeave={() => setHover('default')}
+                        className="flex items-center gap-3 mb-16 group w-fit hover:opacity-80 transition-opacity"
+                    >
                         <div className="w-10 h-10 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                             <span className="font-orbitron font-bold text-black text-lg">CI</span>
                         </div>
-                        <span className="font-orbitron font-bold text-white text-xl tracking-wide">CoreInventory</span>
-                    </div>
+                        <span className="font-orbitron font-bold text-white text-xl tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                    </Link>
                 </div>
 
                 <div className="relative z-10 w-full max-w-lg mt-auto">
@@ -42,12 +50,17 @@ export const AuthLayout = ({ children }) => {
             <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative">
                 <div className="w-full max-w-md">
                     {/* Mobile Branding */}
-                    <div className="flex lg:hidden items-center justify-center gap-2 mb-12">
+                    <Link 
+                        to="/landing"
+                        onMouseEnter={() => setHover('link')}
+                        onMouseLeave={() => setHover('default')}
+                        className="flex lg:hidden items-center justify-center gap-2 mb-12 group hover:opacity-80 transition-opacity"
+                    >
                         <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                             <span className="font-orbitron font-bold text-black text-sm">CI</span>
                         </div>
-                        <span className="font-orbitron font-bold text-white tracking-wide">CoreInventory</span>
-                    </div>
+                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                    </Link>
 
                     <AnimatePresence mode="wait">
                         <motion.div

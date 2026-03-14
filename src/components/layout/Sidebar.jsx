@@ -96,8 +96,13 @@ export const Sidebar = () => {
         >
             {/* Header */}
             <div className="h-16 flex items-center justify-between px-4 border-b border-border">
-                <div className="flex items-center gap-3 overflow-hidden whitespace-nowrap">
-                    <div className="w-8 h-8 bg-accent-yellow/10 border border-accent-yellow flex items-center justify-center rounded shrink-0">
+                <Link 
+                    to="/landing"
+                    onMouseEnter={() => setCursorHoverState('link')}
+                    onMouseLeave={() => setCursorHoverState('default')}
+                    className="flex items-center gap-3 overflow-hidden whitespace-nowrap group hover:opacity-80 transition-opacity"
+                >
+                    <div className="w-8 h-8 bg-accent-yellow/10 border border-accent-yellow flex items-center justify-center rounded shrink-0 group-hover:bg-accent-yellow/20 transition-colors">
                         <span className="font-orbitron font-bold text-accent-yellow text-sm">CI</span>
                     </div>
                     {sidebarExpanded && (
@@ -105,12 +110,12 @@ export const Sidebar = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="font-orbitron font-bold text-white text-lg tracking-wide"
+                            className="font-orbitron font-bold text-white text-lg tracking-wide group-hover:text-accent-yellow transition-colors"
                         >
                             CoreInventory
                         </motion.span>
                     )}
-                </div>
+                </Link>
             </div>
 
             {/* Collapse Toggle */}

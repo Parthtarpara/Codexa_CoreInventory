@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
 import { ArrowRight, PackageOpen, Layers, BellRing, FileText, ArrowLeftRight, Clock } from 'lucide-react';
@@ -61,12 +61,17 @@ export const LandingPage = () => {
         >
             {/* Navbar (Landing) */}
             <nav className="container mx-auto px-6 h-16 flex items-center justify-between border-b border-white/5 relative z-20">
-                <div className="flex items-center gap-3">
+                <Link 
+                    to="/landing"
+                    onMouseEnter={() => setHover('link')}
+                    onMouseLeave={() => setHover('default')}
+                    className="flex items-center gap-3 group hover:opacity-80 transition-opacity"
+                >
                     <div className="w-8 h-8 bg-accent-yellow border border-accent-yellow flex items-center justify-center rounded">
                         <span className="font-orbitron font-bold text-black text-sm">CI</span>
                     </div>
-                    <span className="font-orbitron font-bold text-white tracking-wide">CoreInventory</span>
-                </div>
+                    <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
+                </Link>
                 <div className="hidden md:flex gap-6">
                     <button 
                         className="text-sm text-text-secondary hover:text-white transition-colors" 
