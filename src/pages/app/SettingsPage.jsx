@@ -66,7 +66,9 @@ export const SettingsPage = () => {
                             <form onSubmit={handleSave} className="space-y-6">
                                 <div className="flex items-center gap-6 mb-8 border-b border-border pb-6">
                                     <div className="relative">
-                                        <img src={currentUser?.avatar} alt="Avatar" className="w-20 h-20 rounded-full border border-border" />
+                                        <div className="w-20 h-20 rounded-full border-2 border-border flex items-center justify-center bg-elevated text-text-secondary">
+                                            <User size={40} />
+                                        </div>
                                         <button type="button" className="absolute bottom-0 right-0 w-6 h-6 bg-accent-yellow text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                                             <Settings size={12} />
                                         </button>
@@ -113,7 +115,7 @@ export const SettingsPage = () => {
                                     {[
                                         { id: 'n1', label: 'Low Stock Alerts', desc: 'Receive immediate alerts when items hit reorder points.' },
                                         { id: 'n2', label: 'Delivery Dispatches', desc: 'Get notified when outgoing DOs leave the facility.' },
-                                        { id: 'n3', label: 'System Updates', desc: 'Information about Inventorium maintenance.' }
+                                        { id: 'n3', label: 'System Updates', desc: 'Information about CoreInventory maintenance.' }
                                     ].map(notif => (
                                         <div key={notif.id} className="flex items-start justify-between p-3 bg-primary border border-border rounded hover:border-accent-yellow/30 transition-colors">
                                             <div>

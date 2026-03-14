@@ -20,7 +20,7 @@ export const StatCard = ({ title, value, type = 'number', trend = 0, warning = f
     const isNegative = trend < 0;
 
     const formattedVal = type === 'currency'
-        ? `₹${formatNumber(animatedValue.toFixed(2))}`
+        ? `$${formatNumber(animatedValue.toFixed(2))}`
         : type === 'percentage'
             ? `${animatedValue.toFixed(1)}%`
             : Math.floor(animatedValue);

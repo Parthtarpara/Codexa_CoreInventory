@@ -31,7 +31,7 @@ export const AuthLayout = ({ children }) => {
                         <div className="w-10 h-10 rounded overflow-hidden">
                             <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
-                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
+                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
                     </Link>
                 </div>
 
@@ -41,7 +41,7 @@ export const AuthLayout = ({ children }) => {
                         <span className="text-accent-yellow text-glow">operational excellence.</span>"
                     </h2>
                     <p className="text-text-secondary font-space">
-                        Join thousands of warehouse professionals using Inventorium to eliminate stockouts and perfect order fulfillment.
+                        Join thousands of warehouse professionals using CoreInventory to eliminate stockouts and perfect order fulfillment.
                     </p>
                 </div>
             </div>
@@ -59,7 +59,7 @@ export const AuthLayout = ({ children }) => {
                         <div className="w-8 h-8 rounded overflow-hidden">
                             <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
-                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
+                        <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
                     </Link>
 
                     <AnimatePresence mode="wait">

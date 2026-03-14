@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 export const LoginPage = () => {
     const navigate = useNavigate();
     const { login } = useAppStore();
-    const [email, setEmail] = useState('admin@inventorium.io');
+    const [email, setEmail] = useState('admin@coreinventory.com');
     const [password, setPassword] = useState('password');
 
     const handleSubmit = (e) => {

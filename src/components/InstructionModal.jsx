@@ -16,7 +16,7 @@ const steps = [
   {
     icon: <Globe className="text-accent-yellow" size={24} />,
     title: "Step 3 — Track Stock Across Locations",
-    description: "Each product can exist in different warehouses or locations. Inventorium shows exactly where every unit is stored."
+    description: "Each product can exist in different warehouses or locations. CoreInventory shows exactly where every unit is stored."
   },
   {
     icon: <Truck className="text-accent-yellow" size={24} />,

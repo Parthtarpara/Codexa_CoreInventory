@@ -70,7 +70,7 @@ export const LandingPage = () => {
                     <div className="w-8 h-8 rounded overflow-hidden">
                         <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                     </div>
-                    <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">INVENTORIUM</span>
+                    <span className="font-orbitron font-bold text-white tracking-wide group-hover:text-accent-yellow transition-colors">CoreInventory</span>
                 </Link>
                 <div className="hidden md:flex gap-6">
                     <button 
@@ -235,7 +235,7 @@ export const LandingPage = () => {
                 {/* SOCIAL PROOF BAR */}
                 <section className="w-full border-y border-white/5 bg-primary/50 overflow-hidden py-4">
                     <div className="whitespace-nowrap flex gap-4 pr-4 text-text-secondary/60 text-sm tracking-widest font-space font-medium uppercase animate-[marquee_20s_linear_infinite] select-none">
-                        Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution • Zenith Manufacturing • Inventorium Intelligence • Precision Systems • Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution •
+                        Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution • Zenith Manufacturing • CoreInventory Intelligence • Precision Systems • Trusted by warehouse teams across 40+ countries • Global Logistics Inc • APEX Distribution •
                     </div>
                     <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
                 </section>
