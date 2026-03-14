@@ -36,6 +36,9 @@
     --warning: #FF8C00;
   }
 
+  * {
+    cursor: none !important;
+  }
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -43,7 +46,6 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
-
 }
 
 @layer utilities {
@@ -66,22 +68,33 @@
 
   @keyframes sparkle {
     0% {
-      transform: scale(0) rotate(0deg);
+      transform: scaleX(0);
       opacity: 0;
     }
-
-    50% {
-      transform: scale(1) rotate(180deg);
+    20% {
       opacity: 1;
+      transform: scaleX(3);
     }
-
     100% {
-      transform: scale(0) rotate(360deg);
+      transform: scaleX(0);
       opacity: 0;
     }
   }
 
+  @keyframes pulse {
+    0%, 100% {
+      box-shadow: 0 0 15px #F5C400, 0 0 30px #F5C400, 0 0 60px rgba(245, 196, 0, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 25px #F5C400, 0 0 50px #F5C400, 0 0 100px rgba(245, 196, 0, 0.8);
+    }
+  }
+  
   .animate-sparkle {
-    animation: sparkle 0.8s ease-out forwards;
+    animation: sparkle 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse 1.5s infinite ease-in-out;
   }
 }
