@@ -147,7 +147,7 @@ export const LandingPage = () => {
                                 transition={{ delay: 0.8, duration: 0.6 }}
                                 className="text-text-secondary text-lg md:text-xl max-w-xl mb-10 leading-relaxed font-space"
                             >
-                                Inventorium gives warehouse teams real-time visibility across stock, transfers, and deliveries — built for operations that cannot afford to guess.
+                                CoreInventory gives warehouse teams real-time visibility across stock, transfers, and deliveries — built for operations that cannot afford to guess.
                             </motion.p>
 
                             <motion.div
@@ -279,7 +279,7 @@ export const LandingPage = () => {
                         <div className="w-6 h-6 rounded shrink-0 overflow-hidden">
                             <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                         </div>
-                        <span className="font-orbitron font-bold text-white opacity-80 text-sm">INVENTORIUM</span>
+                        <span className="font-orbitron font-bold text-white opacity-80 text-sm">CoreInventory</span>
                     </div>
                     <div className="flex gap-6 text-sm text-text-secondary">
                         <a href="#" className="hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Support</a>
@@ -287,7 +287,7 @@ export const LandingPage = () => {
                         <a href="#" className="hover:text-white transition-colors" onMouseEnter={() => setHover('link')} onMouseLeave={() => setHover('default')}>Privacy</a>
                     </div>
                     <div className="text-text-secondary text-sm">
-                        &copy; 2025 INVENTORIUM
+                        &copy; 2025 CoreInventory
                     </div>
                 </div>
             </footer>

@@ -107,7 +107,14 @@ export const Sidebar = () => {
                         <img src="/brand-logo.png" alt="CoreInventory" className="w-full h-full object-cover" style={{ filter: 'invert(1) brightness(2)' }} />
                     </div>
                     {sidebarExpanded && (
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="font-orbitron font-bold text-white text-lg tracking-wide group-hover:text-accent-yellow transition-colors"
+                        >
                             CoreInventory
+                        </motion.span>
                     )}
                 </Link>
             </div>

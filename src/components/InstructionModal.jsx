@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Package, ArrowDownLeft, MapPin, Truck, Repeat, Settings2, BarChart3 } from 'lucide-react';
+import { X, Package, ArrowDownLeft, MapPin, Truck, Repeat, Settings2, BarChart3, Globe } from 'lucide-react';
 
 const steps = [
   {
